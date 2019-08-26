@@ -5,18 +5,7 @@ namespace prova;
 require_once('Config.php');
 
 use controll\ControllUsuarios;
-
-// $ctrlUser = new ControllUsuarios;
-// // $result = $ctrlUser->creatUsuario( 'pedro49',  'pedro49',  'predo49@gmail.com',  '01234' );
-// var_dump($result);
-
-/*use controll\ControllAlunos;
-
-$ctlAluno =  new ControllAlunos;
-$ctlAluno->creatAluno( 'Emerson Rodrigues', date("Y-m-d", strtotime("2011-01-07")) ,  1 );
-var_dump( $ctlAluno->getAluno(1) );
-var_dump( $ctlAluno->getAllAlunos() );
-*/
+ 
 if(isset($_POST['login-button'])){
 	$ctrlUser = new ControllUsuarios;  
 	if($ctrlUser->login( $_POST['login'], $_POST['password'] ) ){

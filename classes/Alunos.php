@@ -1,23 +1,27 @@
 <?php
 namespace classes;
 
+use \Exception;
+
 class Alunos{
 	private $id;
 	private $nome;  
 	private $dataNascimento;
 
-	public function setAttrAluno(String $nome, Date $dataNascimento, int $id = null)
+	public function setAttrAluno(String $nome, string $dataNascimento, int $id = null)
 	{
 		$this->id = $id;
 		$this->nome = $nome;  
 		$this->dataNascimento = $dataNascimento;
+		var_dump( $nome, $dataNascimento, $id);
+
 	}
  	
- 	public function getId(){
+ 	public function getId(){  
  		return $this->id;
  	}
 
- 	public function setId($id){
+ 	public function setId(int $id){
  		$this->id = $id;
  	}
  	
@@ -25,7 +29,7 @@ class Alunos{
  		return $this->dataNascimento;
  	}
 
- 	public function setDataNascimento($dataNascimento){
+ 	public function setDataNascimento(String $dataNascimento){
  		$this->dataNascimento = $dataNascimento;
  	}
  	
@@ -33,7 +37,7 @@ class Alunos{
  		return $this->nome;
  	}
 
- 	public function setNome($nome){
+ 	public function setNome(String $nome){
  		$this->nome = $nome;
  	}
 
@@ -41,43 +45,47 @@ class Alunos{
  	{
  		switch ($tipo) {
  			case 'edit': 
- 				veriricaId();
+ 				$this->veriricaId();
  			case 'save': 
- 				if(!empty($this->getNome())){
+ 				if(empty( $this->nome )){
  					throw new Exception("É necessário que o aluno possua um nome", 1); 	
  				}
- 				if(!empty($this->getDataNascimento())){
+ 				if(empty($this->dataNascimento ) ){
  					throw new Exception("É necessário que o aluno possua uma data de nascimento", 1); 	
  				}
  				break;
  			
  			case 'get': 
  			case 'delete':
- 				veriricaId();
+ 				$this->veriricaId();
  				break;
  		}
 
- 		function veriricaId(){
-			if(!empty($this->getId())){
-				throw new Exception("Houve um erro ao resgatar o aluno", 1); 	
-			}
- 		}
  	}
+	public function veriricaId(){
+		if(empty($this->id ) ){
+			throw new Exception("Houve um erro ao resgatar o aluno", 1); 	
+		}
+	}
 
  	public function saveAluno()
  	{ 
  		$this->verifyAttr('save');
+ 		return $this->id;
+ 		
  	}
 
  	public function editAluno()
  	{ 
  		$this->verifyAttr('edit');
+ 		return $this->id;
  		
  	} 
  	
  	public function deletarAluno()
  	{ 
  		$this->verifyAttr('delete');
+ 		return $this->id;
  		
  	}
 
@@ -94,7 +102,12 @@ class Alunos{
 
  	public function getListAluno()
  	{ 
- 		
+
+ 		return [
+			$this->id,
+			$this->nome,  
+			$this->dataNascimento
+ 		];
  	}
 
 

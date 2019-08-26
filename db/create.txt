@@ -1,0 +1,18 @@
+CREATE SCHEMA `challenge` DEFAULT CHARACTER SET utf8 ;
+
+create table alunos(
+	id INT  NOT NULL AUTO_INCREMENT, 
+	nome varchar(100) not null,  
+	dataNascimento date not null,
+    PRIMARY KEY (id)
+);
+
+create table usuarios(
+	id INT  NOT NULL AUTO_INCREMENT, 
+	nome varchar(100) not null,  
+	username varchar(20) not null,
+	email varchar(100) unique not null,
+	senha varchar(20) not null,
+    PRIMARY KEY (id)
+);
+

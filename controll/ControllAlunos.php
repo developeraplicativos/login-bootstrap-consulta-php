@@ -8,37 +8,37 @@ class ControllAlunos{
 
 	public function __construct()
 	{
-		$this->aluno = new Alunos;
+		$this->aluno = new Alunos; 
 	}
 
-	public function creatAluno($id,$nome, $dataNascimento)
+	public function creatAluno( $nome, $dataNascimento, $id)
 	{
-		$this->aluno->setAttrAluno($id,$nome, $dataNascimento );
-		$this->aluno->save();
+		$this->aluno->setAttrAluno($nome, $dataNascimento, $id  );
+		return $this->aluno->saveAluno();
 	}
 
 	public function editAluno($id,$nome, $dataNascimento )
 	{
-		$this->aluno->setAttrAluno($id,$nome, $dataNascimento );
+		return $this->aluno->setAttrAluno($id,$nome, $dataNascimento );
 		
 	}
 	
 	public function delAluno()
 	{
 		$this->aluno->setId( $id );
-		$this->aluno->deletar( );
+		return $this->aluno->deletar( );
 		
 	}
 	
-	public function getAluno($id )
+	public function getAluno( $id )
 	{
-		$this->aluno->deletar( );
-		$this->aluno->get( );
+		$this->aluno->setId( $id ); 
+		return $this->aluno->getAluno();
 		
 	}
 	
 	public function getAllAlunos()
 	{ 
-		$this->aluno->getList( );
+		return $this->aluno->getListAluno( );
 	}
 }

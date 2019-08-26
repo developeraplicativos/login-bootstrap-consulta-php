@@ -1,46 +1,37 @@
 <?php
+namespace db;
+
+use \PDO;
+
 class db{
 	private $servername = 'localhost';
-	private $username = 'superUser';
-	private $password = 'user123';
-	private $dbname = 'db_teste';
+	private $username = 'root';
+	private $password = '';
+	private $dbname = 'challenge';
 	private $conn;
 	private $stmt; 
 
 	public function __construct()
-	{
-		$this->conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password); 
+	{	
+ 
+		$this->conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password); 
 	    $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 
-	public function query($query, $array)
+	public function query(String $query, $array = array())
 	{
-		$this->stmt = $this->conn->prepare($query);
-		if(is_array($array)){ 
-			$this->prepared($array);
-		}else{
-			$this->exe();
-		}
+		$stmt = $this->conn->prepare($query); 
+			foreach ($array as $key => $value) {   
+				// $stmt->bindParam( $key , $value );
+				$this->setParams( $stmt, $key , $value );
+			} 
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
-	public function prepared($stmt, $array)
+	public function setParams($stmt, $key , $value )
 	{
-		foreach ($array as $key => $value) { 
-    		$this->stmt->bindParam( $key , $value );
-		}
-		$this->exe();
-	}
-
-	public function exe()
-	{
-		$this->stmt->execute();
-		if($this->stmt->fetchColumn() !== 0){
-			return $this->stmt->fetchAll();
-		}
-	}
-
-	public function __destruct()
-	{
-		$this->conn->close();
-	}
+	 	$stmt->bindParam( $key , $value ); 
+	} 
+ 
 }
