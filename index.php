@@ -1,5 +1,4 @@
 <?php
-
 namespace prova;
 
 require_once('Config.php');
